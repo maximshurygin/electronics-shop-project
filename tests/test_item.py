@@ -10,3 +10,9 @@ def item():
 
 def test_calculate_total_price(item):
     assert item.calculate_total_price() == 50
+
+
+def test_apply_discount(item):
+    assert item.price == 10
+    item.apply_discount()
+    assert item.price == 10 * Item.pay_rate
