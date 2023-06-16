@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -29,6 +32,25 @@ class Item:
         else:
             self.__name = new_name[:10]
 
+    @staticmethod
+    def string_to_number(string):
+        return int(float(string))
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Инициализирует экземпляры класса Item данными из CSV-файла.
+
+        :param file_path: Путь к CSV-файлу.
+        """
+        cls.all = []
+        with open('/Users/Maxim/py_project/electronics-shop-project/src/items.csv', 'r', encoding='cp1251') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                name = row['name']
+                price = float(row['price'])
+                quantity = int(row['quantity'])
+                cls(name, price, quantity)
 
     def calculate_total_price(self) -> float:
         """
@@ -43,3 +65,4 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.__class__.pay_rate
+
