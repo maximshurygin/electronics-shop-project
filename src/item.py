@@ -34,6 +34,7 @@ class Item:
 
     @staticmethod
     def string_to_number(string):
+        """статический метод, возвращающий число из числа-строки"""
         return int(float(string))
 
     @classmethod
