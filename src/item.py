@@ -43,8 +43,8 @@ class Item:
         """инициализирует экземпляры класса Item данными из CSV-файла."""
         cls.all = []
 
-        root_dir = Path(__file__).resolve().parent
-        file_path = root_dir / 'items.csv'
+        project_dir = Path(__file__).resolve().parent
+        file_path = project_dir / 'items.csv'
 
         with open(file_path, 'r', encoding='cp1251') as csvfile:
             reader = csv.DictReader(csvfile)
