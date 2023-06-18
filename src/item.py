@@ -1,4 +1,5 @@
 import csv
+from pathlib import Path
 
 
 class Item:
@@ -39,13 +40,13 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        """
-        Инициализирует экземпляры класса Item данными из CSV-файла.
-
-        :param file_path: Путь к CSV-файлу.
-        """
+        """инициализирует экземпляры класса Item данными из CSV-файла."""
         cls.all = []
-        with open('/Users/Maxim/py_project/electronics-shop-project/src/items.csv', 'r', encoding='cp1251') as csvfile:
+
+        current_file = Path(__file__)
+        file_path = current_file.resolve().parent / 'items.csv'
+
+        with open(file_path, 'r', encoding='cp1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 name = row['name']
@@ -53,7 +54,7 @@ class Item:
                 quantity = int(row['quantity'])
                 cls(name, price, quantity)
 
-    def calculate_total_price(self) -> float:
+    def calculate_total_price(self):
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
 
@@ -66,4 +67,3 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.__class__.pay_rate
-
