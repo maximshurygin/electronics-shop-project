@@ -27,3 +27,9 @@ def test_instantiate_from_csv(item):
     assert len(item.all)
 
 
+def test_repr(item):
+    assert repr(item) == "Item('Test', 10, 5)"
+
+
+def test_str(item):
+    assert str(item) == 'Test'
