@@ -30,6 +30,13 @@ class Item:
         """возвращает описание для пользователя"""
         return self.name
 
+    def __add__(self, other):
+        """возвращает сумму количества товаров или TypeError"""
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        else:
+            raise TypeError
+
     @property
     def name(self):
         return self.__name
