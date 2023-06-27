@@ -33,3 +33,16 @@ def test_repr(item):
 
 def test_str(item):
     assert str(item) == 'Test'
+
+
+def test_add(item):
+    item2 = Item("Test2", 1, 2)
+    assert item + item2 == 7
+
+
+def test_name(item):
+    item.name = 'test_item'
+    assert item.name == 'test_item'
+
+    item.name = 'first_test_item'
+    assert item.name == 'first_test'
