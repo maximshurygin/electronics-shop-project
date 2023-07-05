@@ -1,5 +1,6 @@
 import csv
 from pathlib import Path
+from src.error import InstantiateCSVError
 
 
 class Item:
@@ -60,14 +61,19 @@ class Item:
 
         project_dir = Path(__file__).resolve().parent
         file_path = project_dir / 'items.csv'
+        try:
+            with open(file_path, 'r', encoding='cp1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                        raise InstantiateCSVError
+                    name = row['name']
+                    price = float(row['price'])
+                    quantity = int(row['quantity'])
+                    cls(name, price, quantity)
 
-        with open(file_path, 'r', encoding='cp1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                name = row['name']
-                price = float(row['price'])
-                quantity = int(row['quantity'])
-                cls(name, price, quantity)
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл item.csv")
 
     def calculate_total_price(self):
         """
